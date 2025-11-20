@@ -22,8 +22,11 @@ LOCAL_SRC_FILES:= \
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/include
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/include
 
-LOCAL_CFLAGS := -DLOG_TAG=\"libfb\" -DDISABLE_CPUCAP -DDISABLE_XPLAT -fexceptions -frtti
-LOCAL_CFLAGS += -Wall -Werror
+LOCAL_CFLAGS += -Wno-vla-cxx-extension
+LOCAL_CFLAGS += -Wno-vla-extension
+LOCAL_CFLAGS += -Wno-delete-non-abstract-non-virtual-dtor
+LOCAL_CFLAGS += -Wno-delete-non-virtual-dtor
+
 # encapsulate each symbol so it can be removed later
 LOCAL_CFLAGS += -fdata-sections -ffunction-sections
 # include/utils/threads.h has unused parameters
@@ -32,15 +35,18 @@ ifeq ($(TOOLCHAIN_PERMISSIVE),true)
   LOCAL_CFLAGS += -Wno-error=unused-but-set-variable
 endif
 LOCAL_CFLAGS += -DHAVE_POSIX_CLOCKS
+LOCAL_CFLAGS += -DDISABLE_CPUCAP -DDISABLE_XPLAT
 
 CXX11_FLAGS := -std=gnu++11
 LOCAL_CFLAGS += $(CXX11_FLAGS)
+LOCAL_CPPFLAGS += -fexceptions -frtti
 
 LOCAL_EXPORT_CPPFLAGS := $(CXX11_FLAGS)
 
-LOCAL_LDLIBS := -llog -ldl -landroid
+LOCAL_LDLIBS := -llog -ldl -landroid -lc++_shared -latomic
 LOCAL_LDFLAGS   += -Wl,--gc-sections -Wl,--exclude-libs,ALL
 LOCAL_EXPORT_LDLIBS := -llog
+
 
 LOCAL_MODULE := libfb
 
