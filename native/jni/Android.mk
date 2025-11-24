@@ -22,6 +22,7 @@ LOCAL_CFLAGS    += -I$(LOCAL_PATH)/../../third-party/openssl/include
 LOCAL_SRC_FILES := CipherHybrid.cpp DecryptHybrid.cpp EncryptHybrid.cpp JavaArrays.cpp JKeyChain.cpp KeyChainFromJava.cpp MacDecoderHybrid.cpp MacEncoderHybrid.cpp OnLoad.cpp PBKDF2Hybrid.cpp
 LOCAL_LDLIBS    := -llog -lc++_shared -latomic
 LOCAL_LDFLAGS   += -Wl,--gc-sections -Wl,--exclude-libs,ALL
+LOCAL_LDFLAGS   += -Wl,-z,max-page-size=16384
 
 LOCAL_STATIC_LIBRARIES := concealcpp
 LOCAL_SHARED_LIBRARIES := fb

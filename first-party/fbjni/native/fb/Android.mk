@@ -45,6 +45,7 @@ LOCAL_EXPORT_CPPFLAGS := $(CXX11_FLAGS)
 
 LOCAL_LDLIBS := -llog -ldl -landroid -lc++_shared -latomic
 LOCAL_LDFLAGS   += -Wl,--gc-sections -Wl,--exclude-libs,ALL
+LOCAL_LDFLAGS   += -Wl,-z,max-page-size=16384
 LOCAL_EXPORT_LDLIBS := -llog
 
 
